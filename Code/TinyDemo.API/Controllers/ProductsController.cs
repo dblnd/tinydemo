@@ -17,9 +17,18 @@ namespace TinyDemo.API.Controllers
         private AdventureWorksModel db = new AdventureWorksModel();
 
         // GET: api/Products
-        public IQueryable<Product> GetProducts()
+        public List<Product> GetProducts()
         {
-            return db.Products;
+            //var x = db.Products.ToList();
+            //return db.Products;
+
+            using (AdventureWorksModel context = new AdventureWorksModel())
+            {
+                context.Configuration.ProxyCreationEnabled = false;
+                List<Product> products = context.Products
+                    .ToList();
+                return products;
+            }
         }
 
         // GET: api/Products/5

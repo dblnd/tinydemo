@@ -17,9 +17,15 @@ namespace TinyDemo.API.Controllers
         private AdventureWorksModel db = new AdventureWorksModel();
 
         // GET: api/ProductCategories
-        public IQueryable<ProductCategory> GetProductCategories()
+        public List<ProductCategory> GetProductCategories()
         {
-            return db.ProductCategories;
+            using (AdventureWorksModel context = new AdventureWorksModel())
+            {
+                context.Configuration.ProxyCreationEnabled = false;
+                List<ProductCategory> productCategories = context.ProductCategories
+                    .ToList();
+                return productCategories;
+            }
         }
 
         // GET: api/ProductCategories/5

@@ -28,11 +28,6 @@ namespace TinyDemo.API
             modelBuilder.Entity<Product>()
                 .Property(e => e.Weight)
                 .HasPrecision(8, 2);
-
-            modelBuilder.Entity<ProductCategory>()
-                .HasMany(e => e.ProductCategory1)
-                .WithOptional(e => e.ProductCategory2)
-                .HasForeignKey(e => e.ParentProductCategoryID);
         }
     }
 }

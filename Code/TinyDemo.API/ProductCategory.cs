@@ -13,7 +13,6 @@ namespace TinyDemo.API
         public ProductCategory()
         {
             Products = new HashSet<Product>();
-            ProductCategory1 = new HashSet<ProductCategory>();
         }
 
         public int ProductCategoryID { get; set; }
@@ -31,9 +30,5 @@ namespace TinyDemo.API
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductCategory> ProductCategory1 { get; set; }
-
-        public virtual ProductCategory ProductCategory2 { get; set; }
     }
 }
