@@ -1,0 +1,8 @@
+1 create database in azure with adventureworks
+2 create read user on database
+3 create data project EF database first
+4 create DBSet for Products and DBSet for Categories
+5 create REST Web API for Categories
+6 create REST Web API for Products
+7 create jquery getJson to call Categories and display in dropdown
+8 create Search button to call products (category as parameter; no parameter = show all products)
