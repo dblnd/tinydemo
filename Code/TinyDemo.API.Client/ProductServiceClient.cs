@@ -10,7 +10,7 @@ using TinyDemo.Models;
 
 namespace TinyDemo.API.Client
 {
-    public class ProductsServiceClient
+    public class ProductServiceClient
     {
         public List<ProductModel> GetProducts()
         {

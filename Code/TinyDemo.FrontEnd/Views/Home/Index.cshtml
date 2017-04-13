@@ -7,7 +7,11 @@
 <div id="product-selection">
     <p>
         Products:
-        <select data-bind="options: products"></select>
+        <select data-bind="options: products,
+                optionsText: 'text',
+                optionsValue: 'id',
+                value: selectedProduct,
+                optionsCaption: 'Choose...'"></select>
     </p>
 </div>
 
@@ -17,6 +21,7 @@
         var self = this;
 
         self.products = ko.observableArray([]);
+        self.selectedProduct = ko.observable();
 
         $.ajax({
             url: '/api/products',
@@ -25,7 +30,7 @@
             traditional: true,
             success: function (result) {
                 for (var i = 0; i < result.length; i++) {
-                    self.products.push(result[i]);
+                    self.products.push({id : result[i].ProductID, text: result[i].Name});
                 }
             }
         });

@@ -15,7 +15,7 @@ namespace TinyDemo.FrontEnd.api
         // GET api/<controller>
         public IEnumerable<ProductModel> Get()
         {
-            ProductsServiceClient productsClient = new ProductsServiceClient();
+            ProductServiceClient productsClient = new ProductServiceClient();
             return productsClient.GetProducts();
         }
 
