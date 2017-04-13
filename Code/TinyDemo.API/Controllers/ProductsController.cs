@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using TinyDemo.API;
+using TinyDemo.Models;
 
 namespace TinyDemo.API.Controllers
 {
@@ -17,7 +18,7 @@ namespace TinyDemo.API.Controllers
         private AdventureWorksModel db = new AdventureWorksModel();
 
         // GET: api/Products
-        public List<Product> GetProducts()
+        public List<ProductModel> GetProducts()
         {
             //var x = db.Products.ToList();
             //return db.Products;
@@ -25,9 +26,7 @@ namespace TinyDemo.API.Controllers
             using (AdventureWorksModel context = new AdventureWorksModel())
             {
                 context.Configuration.ProxyCreationEnabled = false;
-                List<Product> products = context.Products
-                    .ToList();
-                return products;
+                return context.Products.Select(p => new ProductModel() { ProductID = p.ProductID, Name = p.Name}).ToList();
             }
         }
 
