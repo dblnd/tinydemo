@@ -45,13 +45,12 @@
         self.selectedProductCategory = ko.observable();
 
         self.find = function () {
-            var url = '/api/product';
-            if (self.selectedProductCategory())
-                url += '/' + self.selectedProductCategory();
+            var url = '/api/product/get';
 
             $.ajax({
                 url: url,
                 type: 'GET',
+                data: {id: self.selectedProductCategory()},
                 traditional: true,
                 success: function (result) {
                     self.products.removeAll();

@@ -39,7 +39,8 @@ namespace TinyDemo.API.Client
 
             using (HttpClient client = new HttpClient())
             {
-                using (HttpResponseMessage apiResponse = client.GetAsync("http://localhost:60648/api/products").Result)
+                string url = string.Format("http://localhost:60648/api/products?categoryid={0}", categoryId);
+                using (HttpResponseMessage apiResponse = client.GetAsync(url).Result)
                 {
 
                     if (apiResponse.StatusCode != HttpStatusCode.OK)

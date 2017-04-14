@@ -12,7 +12,6 @@ namespace TinyDemo.FrontEnd.api
     public class ProductController : ApiController
     {
         [HttpGet]
-        // GET api/<controller>
         public IEnumerable<ProductModel> Get()
         {
             ProductServiceClient productsClient = new ProductServiceClient();
@@ -20,26 +19,10 @@ namespace TinyDemo.FrontEnd.api
         }
 
         [HttpGet]
-        // GET api/<controller>/5
-        public IEnumerable<ProductModel> Get(int categoryId)
+        public IEnumerable<ProductModel> Get(int id)
         {
             ProductServiceClient productsClient = new ProductServiceClient();
-            return productsClient.GetProductsByCategoryId(categoryId);
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            return productsClient.GetProductsByCategoryId(id);
         }
     }
 }
