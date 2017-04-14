@@ -4,36 +4,67 @@
 }
 
 <h2>Home</h2>
-<div id="category-selection">
-    <span>
-        Product categories:
-        <select data-bind="options: productCategories,
+
+<div id="product-viewer">
+    <div id="category-selection">
+        <span>
+            Product categories:
+            <select data-bind="options: productCategories,
                 optionsText: 'text',
                 optionsValue: 'id',
                 value: selectedProductCategory,
                 optionsCaption: 'Choose...'"></select>
-    </span>
-    <span>
-        <button data-bind="click: find">Find</button>
-    </span>
+        </span>
+        <span>
+            <button data-bind="click: find">Find</button>
+        </span>
+    </div>
+
+    <div id="products">
+        <table>
+            <thead>
+                <tr><th>Product ID</th><th>Name</th></tr>
+            </thead>
+            <tbody data-bind="foreach: products">
+                <tr>
+                    <td data-bind="text: productid"></td>
+                    <td data-bind="text: productname"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 @section scripts {
 <script>
-    var ProductCategoriesViewModel = function () {
+    var ProductViewerViewModel = function () {
         var self = this;
 
+        self.products = ko.observableArray([]);
         self.productCategories = ko.observableArray([]);
         self.selectedProductCategory = ko.observable();
 
         self.find = function () {
-            alert(self.selectedProductCategory());
+            var url = '/api/product';
+            if (self.selectedProductCategory())
+                url += '/' + self.selectedProductCategory();
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                traditional: true,
+                success: function (result) {
+                    self.products.removeAll();
+                    for (var i = 0; i < result.length; i++) {
+                        self.products.push({ productid: result[i].ProductID, productname: result[i].Name });
+                    }
+                }
+            });
         };
 
         $.ajax({
             url: '/api/productcategory',
             type: 'GET',
-            //data: { ids: Sepia.Portal.BrandSelection.selectedBrands.peek() },
             traditional: true,
             success: function (result) {
                 for (var i = 0; i < result.length; i++) {
@@ -43,6 +74,6 @@
         });
     };
 
-    ko.applyBindings(new ProductCategoriesViewModel(), document.getElementById("category-selection"));
+    ko.applyBindings(new ProductViewerViewModel(), document.getElementById("product-viewer"));
 </script>
 }
