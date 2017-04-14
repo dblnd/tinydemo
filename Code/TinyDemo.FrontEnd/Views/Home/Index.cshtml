@@ -5,14 +5,17 @@
 
 <h2>Home</h2>
 <div id="category-selection">
-    <p>
+    <span>
         Product categories:
         <select data-bind="options: productCategories,
                 optionsText: 'text',
                 optionsValue: 'id',
                 value: selectedProductCategory,
                 optionsCaption: 'Choose...'"></select>
-    </p>
+    </span>
+    <span>
+        <button data-bind="click: find">Find</button>
+    </span>
 </div>
 
 @section scripts {
@@ -22,6 +25,10 @@
 
         self.productCategories = ko.observableArray([]);
         self.selectedProductCategory = ko.observable();
+
+        self.find = function () {
+            alert(self.selectedProductCategory());
+        };
 
         $.ajax({
             url: '/api/productcategory',
