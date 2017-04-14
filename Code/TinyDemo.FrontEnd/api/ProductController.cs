@@ -19,10 +19,12 @@ namespace TinyDemo.FrontEnd.api
             return productsClient.GetProducts();
         }
 
+        [HttpGet]
         // GET api/<controller>/5
-        public string Get(int id)
+        public IEnumerable<ProductModel> Get(int categoryId)
         {
-            return "value";
+            ProductServiceClient productsClient = new ProductServiceClient();
+            return productsClient.GetProductsByCategoryId(categoryId);
         }
 
         // POST api/<controller>

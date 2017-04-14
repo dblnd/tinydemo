@@ -32,5 +32,26 @@ namespace TinyDemo.API.Client
                 }
             }
         }
+
+        public List<ProductModel> GetProductsByCategoryId(int categoryId)
+        {
+            List<ProductModel> result = new List<ProductModel>();
+
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage apiResponse = client.GetAsync("http://localhost:60648/api/products").Result)
+                {
+
+                    if (apiResponse.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new InvalidOperationException(string.Format("Failure while retrieving products. {1}", apiResponse.StatusCode));
+                    }
+
+                    result = apiResponse.Content.ReadAsAsync<List<ProductModel>>(new[] { new JsonMediaTypeFormatter() }).Result;
+
+                    return result;
+                }
+            }
+        }
     }
 }
