@@ -4,38 +4,38 @@
 }
 
 <h2>Home</h2>
-<div id="product-selection">
+<div id="category-selection">
     <p>
-        Products:
-        <select data-bind="options: products,
+        Product categories:
+        <select data-bind="options: productCategories,
                 optionsText: 'text',
                 optionsValue: 'id',
-                value: selectedProduct,
+                value: selectedProductCategory,
                 optionsCaption: 'Choose...'"></select>
     </p>
 </div>
 
 @section scripts {
 <script>
-    var ProductsViewModel = function () {
+    var ProductCategoriesViewModel = function () {
         var self = this;
 
-        self.products = ko.observableArray([]);
-        self.selectedProduct = ko.observable();
+        self.productCategories = ko.observableArray([]);
+        self.selectedProductCategory = ko.observable();
 
         $.ajax({
-            url: '/api/products',
+            url: '/api/productcategory',
             type: 'GET',
             //data: { ids: Sepia.Portal.BrandSelection.selectedBrands.peek() },
             traditional: true,
             success: function (result) {
                 for (var i = 0; i < result.length; i++) {
-                    self.products.push({id : result[i].ProductID, text: result[i].Name});
+                    self.productCategories.push({ id: result[i].ProductCategoryID, text: result[i].Name });
                 }
             }
         });
     };
 
-    ko.applyBindings(new ProductsViewModel(), document.getElementById("product-selection"));
+    ko.applyBindings(new ProductCategoriesViewModel(), document.getElementById("category-selection"));
 </script>
 }

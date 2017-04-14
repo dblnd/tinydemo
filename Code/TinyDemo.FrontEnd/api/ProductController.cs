@@ -9,7 +9,7 @@ using TinyDemo.Models;
 
 namespace TinyDemo.FrontEnd.api
 {
-    public class ProductsController : ApiController
+    public class ProductController : ApiController
     {
         [HttpGet]
         // GET api/<controller>
